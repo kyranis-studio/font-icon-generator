@@ -13,5 +13,11 @@ font icon genrator is an offline cross platforme application to convert svg to f
 * [linux](https://github.com/kyranis-studio/font-icon-generator/releases/download/0.0.1-beta/font-icon-generator.sh)
 ### for linux because of the limit of open file (run ulimit -a to know the limit of open files ) the applicaton may freeze so don't add more then 1024 icons this problem will be fix in the next version
 ### if the svg lib freeze delete the folder /home/youUserName/.font icon generator/svg-lib
-* macos
+* [mac os](https://github.com/kyranis-studio/font-icon-generator/releases/download/0.0.1-beta/font-icon-generator-0.0.1-mac.zip)
+1. extract the zip
+2. make the install-svg-lib.command executable script with chmod +x
+3. install install-svg-lib.command
+4. install font-icon-generator-0.0.1.dmg
+5. run the app
+
 
