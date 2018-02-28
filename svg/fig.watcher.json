@@ -1,0 +1,13 @@
+{
+    "font": {
+        "fontName": "icons",
+        "classPrefix": "icon-",
+        "baseSelector": ""
+    },
+    "projectSettings": {
+        "projectName": "Font Icon Generator",
+        "cssFile": "/home/kyranis/Desktop/test/icons.css",
+        "svgFolder": "/home/kyranis/Projects/font-icon-generator-final/svg",
+        "embedded": false
+    }
+}

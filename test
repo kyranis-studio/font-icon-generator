@@ -1,0 +1,12 @@
+{
+    "font": {
+        "fontName": "icons",
+        "classPrefix": "icon-",
+        "baseSelector": ""
+    },
+    "cssFile": {
+        "fileName": "icons",
+        "embedded": false,
+        "generatedFilePath": "/home/kyranis/Desktop/test"
+    }
+}

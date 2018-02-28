@@ -1,0 +1,13 @@
+{
+    "font": {
+        "fontName": "icons",
+        "classPrefix": "icon-",
+        "baseSelector": ""
+    },
+    "projectSettings": {
+        "projectName": "SVG",
+        "cssFile": "/home/kyranis/Desktop/test.css",
+        "svgFolder": "",
+        "embedded": true
+    }
+}

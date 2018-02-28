@@ -1,0 +1,8 @@
+1- override /home/kyranis/Projects/font-icon-generator-final/node_modules/electron-builder/templates/linux
+2- extract makeself-2.3.1.run
+3- copy file to /usr/bin
+4- compile the electron project
+5- open an terminal and run build.sh
+6- the flat installation will be generate in bin folder
+
+
