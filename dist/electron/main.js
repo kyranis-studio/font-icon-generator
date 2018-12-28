@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1067,7 +1067,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(24);
+exports.humanize = __webpack_require__(25);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -1260,6 +1260,18 @@ function coerce(val) {
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports) {
+
+function webpackEmptyContext(req) {
+	throw new Error("Cannot find module '" + req + "'.");
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+module.exports = webpackEmptyContext;
+webpackEmptyContext.id = 8;
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Approach:
@@ -1305,7 +1317,7 @@ function coerce(val) {
 module.exports = glob
 
 var fs = __webpack_require__(1)
-var rp = __webpack_require__(9)
+var rp = __webpack_require__(10)
 var minimatch = __webpack_require__(5)
 var Minimatch = minimatch.Minimatch
 var inherits = __webpack_require__(38)
@@ -1314,7 +1326,7 @@ var path = __webpack_require__(0)
 var assert = __webpack_require__(4)
 var isAbsolute = __webpack_require__(6)
 var globSync = __webpack_require__(41)
-var common = __webpack_require__(10)
+var common = __webpack_require__(11)
 var alphasort = common.alphasort
 var alphasorti = common.alphasorti
 var setopts = common.setopts
@@ -1324,7 +1336,7 @@ var util = __webpack_require__(3)
 var childrenIgnored = common.childrenIgnored
 var isIgnored = common.isIgnored
 
-var once = __webpack_require__(12)
+var once = __webpack_require__(13)
 
 function glob (pattern, options, cb) {
   if (typeof options === 'function') cb = options, options = {}
@@ -2055,7 +2067,7 @@ Glob.prototype._stat2 = function (f, abs, er, stat, cb) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = realpath
@@ -2127,7 +2139,7 @@ function unmonkeypatch () {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.alphasort = alphasort
@@ -2373,7 +2385,7 @@ function childrenIgnored (self, path) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 // Returns a wrapper function that returns a wrapped callback
@@ -2412,10 +2424,10 @@ function wrappy (fn, cb) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var wrappy = __webpack_require__(11)
+var wrappy = __webpack_require__(12)
 module.exports = wrappy(once)
 module.exports.strict = wrappy(onceStrict)
 
@@ -2460,7 +2472,7 @@ function onceStrict (fn) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2469,7 +2481,7 @@ function onceStrict (fn) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.downloadFile = exports.getPath = undefined;
+exports.changePermissions = exports.downloadFile = exports.getPath = undefined;
 
 var _electron = __webpack_require__(2);
 
@@ -2516,8 +2528,19 @@ var downloadFile = exports.downloadFile = function downloadFile(from, to) {
   });
 };
 
+var changePermissions = exports.changePermissions = function changePermissions(dir, mode) {
+  var files = _fs2.default.readdirSync(dir);
+  files.forEach(function (file) {
+    var filePath = _path2.default.join(dir, file);
+    _fs2.default.chmodSync(filePath, parseInt(mode, 8));
+    if (_fs2.default.statSync(filePath).isDirectory()) {
+      changePermissions(filePath, mode);
+    }
+  });
+};
+
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2600,15 +2623,15 @@ app.on('ready', () => {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "src/main"))
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(16);
-module.exports = __webpack_require__(14);
+__webpack_require__(17);
+module.exports = __webpack_require__(15);
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -2624,7 +2647,7 @@ module.exports = __webpack_require__(14);
 process.env.NODE_ENV = 'development';
 
 // Install `electron-debug` with `devtron`
-__webpack_require__(17)({ showDevTools: true });
+__webpack_require__(18)({ showDevTools: true });
 
 // Install `vue-devtools`
 __webpack_require__(2).app.on('ready', () => {
@@ -2635,17 +2658,17 @@ __webpack_require__(2).app.on('ready', () => {
 });
 
 // Require `main` process to boot app
-__webpack_require__(14);
+__webpack_require__(15);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 const electron = __webpack_require__(2);
-const localShortcut = __webpack_require__(18);
-const isDev = __webpack_require__(28);
+const localShortcut = __webpack_require__(19);
+const isDev = __webpack_require__(29);
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -2692,6 +2715,19 @@ function inspectElements() {
 	}
 }
 
+const addExtensionIfInstalled = (name, getPath) => {
+	const isExtensionInstalled = name => {
+		return BrowserWindow.getDevToolsExtensions &&
+			{}.hasOwnProperty.call(BrowserWindow.getDevToolsExtensions(), name);
+	};
+
+	try {
+		if (!isExtensionInstalled(name)) {
+			BrowserWindow.addDevToolsExtension(getPath(name));
+		}
+	} catch (err) {}
+};
+
 module.exports = opts => {
 	opts = Object.assign({
 		enabled: null,
@@ -2709,15 +2745,10 @@ module.exports = opts => {
 	});
 
 	app.on('ready', () => {
-		// Activate devtron for the user if they have it installed and it's not already added
-		try {
-			const devtronAlreadyAdded = BrowserWindow.getDevToolsExtensions &&
-				{}.hasOwnProperty.call(BrowserWindow.getDevToolsExtensions(), 'devtron');
-
-			if (!devtronAlreadyAdded) {
-				BrowserWindow.addDevToolsExtension(__webpack_require__(29).path);
-			}
-		} catch (err) {}
+		addExtensionIfInstalled('devtron', name => !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()).path);
+		// TODO: Use this when https://github.com/firejune/electron-react-devtools/pull/6 is out
+		// addExtensionIfInstalled('electron-react-devtools', name => require(name).path);
+		addExtensionIfInstalled('electron-react-devtools', name => __webpack_require__(0).dirname(/*require.resolve*/(!(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))));
 
 		localShortcut.register('CmdOrCtrl+Shift+C', inspectElements);
 		localShortcut.register(isMacOS ? 'Cmd+Alt+I' : 'Ctrl+Shift+I', devTools);
@@ -2734,16 +2765,16 @@ module.exports.openDevTools = openDevTools;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 const {app, BrowserWindow} = __webpack_require__(2);
-const isAccelerator = __webpack_require__(19);
-const equals = __webpack_require__(20);
-const {toKeyEvent} = __webpack_require__(21);
-const _debug = __webpack_require__(22);
+const isAccelerator = __webpack_require__(20);
+const equals = __webpack_require__(21);
+const {toKeyEvent} = __webpack_require__(22);
+const _debug = __webpack_require__(23);
 
 const debug = _debug('electron-localshortcut');
 
@@ -2772,7 +2803,10 @@ function _checkAccelerator(accelerator) {
 		const msg = `
 WARNING: ${accelerator} is not a valid accelerator.
 
-${w.stack.split('\n').slice(4).join('\n')}
+${w.stack
+			.split('\n')
+			.slice(4)
+			.join('\n')}
 `;
 		console.error(msg);
 	}
@@ -2917,9 +2951,8 @@ function register(win, accelerator, callback) {
 			const enableAppShortcuts = (e, win) => {
 				const wc = win.webContents;
 				wc.on('before-input-event', keyHandler);
-				wc.once(
-					'closed',
-					() => wc.removeListener('before-input-event', keyHandler)
+				wc.once('closed', () =>
+					wc.removeListener('before-input-event', keyHandler)
 				);
 			};
 
@@ -2929,30 +2962,22 @@ function register(win, accelerator, callback) {
 			windows.forEach(win => enableAppShortcuts(null, win));
 
 			// Enable shortcut on future windows
-			app.on(
-				'browser-window-created',
-				enableAppShortcuts
-			);
+			app.on('browser-window-created', enableAppShortcuts);
 
 			shortcutsOfWindow.removeListener = () => {
 				const windows = BrowserWindow.getAllWindows();
 				windows.forEach(win =>
-					win.webContents.removeListener(
-						'before-input-event',
-						keyHandler
-					)
+					win.webContents.removeListener('before-input-event', keyHandler)
 				);
-				app.removeListener(
-					'browser-window-created',
-					enableAppShortcuts
-				);
+				app.removeListener('browser-window-created', enableAppShortcuts);
 			};
 		} else {
 			const keyHandler = _onBeforeInput(shortcutsOfWindow);
 			wc.on('before-input-event', keyHandler);
 
 			// Save a reference to allow remove of listener from elsewhere
-			shortcutsOfWindow.removeListener = () => wc.removeListener('before-input-event', keyHandler);
+			shortcutsOfWindow.removeListener = () =>
+				wc.removeListener('before-input-event', keyHandler);
 			wc.once('closed', shortcutsOfWindow.removeListener);
 		}
 	}
@@ -3049,7 +3074,7 @@ module.exports = {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3077,7 +3102,7 @@ module.exports = function (str) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3123,7 +3148,7 @@ module.exports = areEqual;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3133,11 +3158,16 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const modifiers = /^(CommandOrControl|CmdOrCtrl|Command|Cmd|Control|Ctrl|Alt|Option|AltGr|Shift|Super)/i;
 const keyCodes = /^(Plus|Space|Tab|Backspace|Delete|Insert|Return|Enter|Up|Down|Left|Right|Home|End|PageUp|PageDown|Escape|Esc|VolumeUp|VolumeDown|VolumeMute|MediaNextTrack|MediaPreviousTrack|MediaStop|MediaPlayPause|PrintScreen|F24|F23|F22|F21|F20|F19|F18|F17|F16|F15|F14|F13|F12|F11|F10|F9|F8|F7|F6|F5|F4|F3|F2|F1|[0-9A-Z)!@#$%^&*(:+<_>?~{|}";=,\-./`[\\\]'])/i;
+const UNSUPPORTED = {};
 
 function reduceModifier({accelerator, event}, modifier) {
 	switch (modifier) {
 		case 'command':
 		case 'cmd': {
+			if (process.platform !== 'darwin') {
+				return UNSUPPORTED;
+			}
+
 			if (event.metaKey) {
 				throw new Error('Double `Command` modifier specified.');
 			}
@@ -3193,6 +3223,10 @@ function reduceModifier({accelerator, event}, modifier) {
 		case 'option':
 		case 'altgr':
 		case 'alt': {
+			if (modifier === 'option' && process.platform !== 'darwin') {
+				return UNSUPPORTED;
+			}
+
 			if (event.altKey) {
 				throw new Error('Double `Alt` modifier specified.');
 			}
@@ -3225,9 +3259,69 @@ function reducePlus({accelerator, event}) {
 	};
 }
 
+const virtualKeyCodes = {
+	0: 'Digit0',
+	1: 'Digit1',
+	2: 'Digit2',
+	3: 'Digit3',
+	4: 'Digit4',
+	5: 'Digit5',
+	6: 'Digit6',
+	7: 'Digit7',
+	8: 'Digit8',
+	9: 'Digit9',
+	'-': 'Minus',
+	'=': 'Equal',
+	Q: 'KeyQ',
+	W: 'KeyW',
+	E: 'KeyE',
+	R: 'KeyR',
+	T: 'KeyT',
+	Y: 'KeyY',
+	U: 'KeyU',
+	I: 'KeyI',
+	O: 'KeyO',
+	P: 'KeyP',
+	'[': 'BracketLeft',
+	']': 'BracketRight',
+	A: 'KeyA',
+	S: 'KeyS',
+	D: 'KeyD',
+	F: 'KeyF',
+	G: 'KeyG',
+	H: 'KeyH',
+	J: 'KeyJ',
+	K: 'KeyK',
+	L: 'KeyL',
+	';': 'Semicolon',
+	'\'': 'Quote',
+	'`': 'Backquote',
+	'/': 'Backslash',
+	Z: 'KeyZ',
+	X: 'KeyX',
+	C: 'KeyC',
+	V: 'KeyV',
+	B: 'KeyB',
+	N: 'KeyN',
+	M: 'KeyM',
+	',': 'Comma',
+	'.': 'Period',
+	'\\': 'Slash',
+	' ': 'Space'
+};
+
 function reduceKey({accelerator, event}, key) {
+	if (key.length > 1 || event.key) {
+		throw new Error(`Unvalid keycode \`${key}\`.`);
+	}
+
+	const code =
+		key.toUpperCase() in virtualKeyCodes ?
+			virtualKeyCodes[key.toUpperCase()] :
+			null;
+
 	return {
-		event: Object.assign({}, event, {key}),
+		event: Object.assign({}, event, {key}, code ? {code} : null),
 		accelerator: accelerator.trim().slice(key.length)
 	};
 }
@@ -3267,6 +3361,10 @@ for (let i = 1; i <= 24; i++) {
 }
 
 function reduceCode({accelerator, event}, {code, key}) {
+	if (event.code) {
+		throw new Error(`Duplicated keycode \`${key}\`.`);
+	}
+
 	return {
 		event: Object.assign({}, event, {key}, code ? {code} : null),
 		accelerator: accelerator.trim().slice((key && key.length) || 0)
@@ -3287,6 +3385,9 @@ function toKeyEvent(accelerator) {
 		if (modifierMatch) {
 			const modifier = modifierMatch[0].toLowerCase();
 			state = reduceModifier(state, modifier);
+			if (state === UNSUPPORTED) {
+				return {unsupportedKeyForPlatform: true};
+			}
 		} else if (state.accelerator.trim()[0] === '+') {
 			state = reducePlus(state);
 		} else {
@@ -3309,23 +3410,16 @@ function toKeyEvent(accelerator) {
 	return state.event;
 }
 
-function match(accelerator, keyEvent) {
-	if (toKeyEvent(accelerator).code === keyEvent.code) {
-		return true;
-	}
-	return false;
-}
-
+exports.UNSUPPORTED = UNSUPPORTED;
 exports.reduceModifier = reduceModifier;
 exports.reducePlus = reducePlus;
 exports.reduceKey = reduceKey;
 exports.reduceCode = reduceCode;
 exports.toKeyEvent = toKeyEvent;
-exports.match = match;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -3334,14 +3428,14 @@ exports.match = match;
  */
 
 if (typeof process !== 'undefined' && process.type === 'renderer') {
-  module.exports = __webpack_require__(23);
+  module.exports = __webpack_require__(24);
 } else {
-  module.exports = __webpack_require__(25);
+  module.exports = __webpack_require__(26);
 }
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -3532,7 +3626,7 @@ function localstorage() {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 /**
@@ -3690,14 +3784,14 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies.
  */
 
-var tty = __webpack_require__(26);
+var tty = __webpack_require__(27);
 var util = __webpack_require__(3);
 
 /**
@@ -3883,7 +3977,7 @@ function createWritableStdioStream (fd) {
 
     case 'PIPE':
     case 'TCP':
-      var net = __webpack_require__(27);
+      var net = __webpack_require__(28);
       stream = new net.Socket({
         fd: fd,
         readable: false,
@@ -3942,19 +4036,19 @@ exports.enable(load());
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("tty");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3966,44 +4060,6 @@ module.exports = isEnvSet ? getFromEnv : (process.defaultApp || /node_modules[\\
 
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(__dirname) {const electron = __webpack_require__(2)
-
-exports.install = () => {
-  if (process.type === 'renderer') {
-    console.log(`Installing Devtron from ${__dirname}`)
-    if (electron.remote.BrowserWindow.getDevToolsExtensions &&
-        electron.remote.BrowserWindow.getDevToolsExtensions().devtron) return true
-    return electron.remote.BrowserWindow.addDevToolsExtension(__dirname)
-  } else if (process.type === 'browser') {
-    console.log(`Installing Devtron from ${__dirname}`)
-    if (electron.BrowserWindow.getDevToolsExtensions &&
-        electron.BrowserWindow.getDevToolsExtensions().devtron) return true
-    return electron.BrowserWindow.addDevToolsExtension(__dirname)
-  } else {
-    throw new Error('Devtron can only be installed from an Electron process.')
-  }
-}
-
-exports.uninstall = () => {
-  if (process.type === 'renderer') {
-    console.log(`Uninstalling Devtron from ${__dirname}`)
-    return electron.remote.BrowserWindow.removeDevToolsExtension('devtron')
-  } else if (process.type === 'browser') {
-    console.log(`Uninstalling Devtron from ${__dirname}`)
-    return electron.BrowserWindow.removeDevToolsExtension('devtron')
-  } else {
-    throw new Error('Devtron can only be uninstalled from an Electron process.')
-  }
-}
-
-exports.path = __dirname
-
-/* WEBPACK VAR INJECTION */}.call(exports, "node_modules/devtron"))
-
-/***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4013,7 +4069,7 @@ exports.path = __dirname
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CYCLEJS_DEVTOOL = exports.REACT_PERF = exports.REDUX_DEVTOOLS = exports.VUEJS_DEVTOOLS = exports.ANGULARJS_BATARANG = exports.JQUERY_DEBUGGER = exports.BACKBONE_DEBUGGER = exports.REACT_DEVELOPER_TOOLS = exports.EMBER_INSPECTOR = undefined;
+exports.MOBX_DEVTOOLS = exports.APOLLO_DEVELOPER_TOOLS = exports.CYCLEJS_DEVTOOL = exports.REACT_PERF = exports.REDUX_DEVTOOLS = exports.VUEJS_DEVTOOLS = exports.ANGULARJS_BATARANG = exports.JQUERY_DEBUGGER = exports.BACKBONE_DEBUGGER = exports.REACT_DEVELOPER_TOOLS = exports.EMBER_INSPECTOR = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -4037,7 +4093,7 @@ var _downloadChromeExtension = __webpack_require__(32);
 
 var _downloadChromeExtension2 = _interopRequireDefault(_downloadChromeExtension);
 
-var _utils = __webpack_require__(13);
+var _utils = __webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4049,7 +4105,11 @@ var _ref = _electron.remote || _electron2.default,
 var IDMap = {};
 var IDMapPath = _path2.default.resolve((0, _utils.getPath)(), 'IDMap.json');
 if (_fs2.default.existsSync(IDMapPath)) {
-  IDMap = JSON.parse(_fs2.default.readFileSync(IDMapPath, 'utf8'));
+  try {
+    IDMap = JSON.parse(_fs2.default.readFileSync(IDMapPath, 'utf8'));
+  } catch (err) {
+    console.error('electron-devtools-installer: Invalid JSON present in the IDMap file');
+  }
 }
 
 var install = function install(extensionReference) {
@@ -4063,8 +4123,10 @@ var install = function install(extensionReference) {
   var chromeStoreID = void 0;
   if ((typeof extensionReference === 'undefined' ? 'undefined' : _typeof(extensionReference)) === 'object' && extensionReference.id) {
     chromeStoreID = extensionReference.id;
-    if (!_semver2.default.satisfies(process.versions.electron, extensionReference.electron)) {
-      return Promise.reject(new Error('Version of Electron: ' + process.versions.electron + ' does not match required range ' + extensionReference.electron + ' for extension ' + chromeStoreID));
+    var electronVersion = process.versions.electron.split('-')[0];
+    if (!_semver2.default.satisfies(electronVersion, extensionReference.electron)) {
+      return Promise.reject(new Error('Version of Electron: ' + electronVersion + ' does not match required range ' + extensionReference.electron + ' for extension ' + chromeStoreID) // eslint-disable-line
+      );
     }
   } else if (typeof extensionReference === 'string') {
     chromeStoreID = extensionReference;
@@ -4090,39 +4152,47 @@ var install = function install(extensionReference) {
 exports.default = install;
 var EMBER_INSPECTOR = exports.EMBER_INSPECTOR = {
   id: 'bmdblncegkenkacieihfhpjfppoconhi',
-  electron: '^1.2.1'
+  electron: '>=1.2.1'
 };
 var REACT_DEVELOPER_TOOLS = exports.REACT_DEVELOPER_TOOLS = {
   id: 'fmkadmapgofadopljbjfkapdkoienihi',
-  electron: '^1.2.1'
+  electron: '>=1.2.1'
 };
 var BACKBONE_DEBUGGER = exports.BACKBONE_DEBUGGER = {
   id: 'bhljhndlimiafopmmhjlgfpnnchjjbhd',
-  electron: '^1.2.1'
+  electron: '>=1.2.1'
 };
 var JQUERY_DEBUGGER = exports.JQUERY_DEBUGGER = {
   id: 'dbhhnnnpaeobfddmlalhnehgclcmjimi',
-  electron: '^1.2.1'
+  electron: '>=1.2.1'
 };
 var ANGULARJS_BATARANG = exports.ANGULARJS_BATARANG = {
   id: 'ighdmehidhipcmcojjgiloacoafjmpfk',
-  electron: '^1.2.1'
+  electron: '>=1.2.1'
 };
 var VUEJS_DEVTOOLS = exports.VUEJS_DEVTOOLS = {
   id: 'nhdogjmejiglipccpnnnanhbledajbpd',
-  electron: '^1.2.1'
+  electron: '>=1.2.1'
 };
 var REDUX_DEVTOOLS = exports.REDUX_DEVTOOLS = {
   id: 'lmhkpmbekcpmknklioeibfkpmmfibljd',
-  electron: '^1.2.1'
+  electron: '>=1.2.1'
 };
 var REACT_PERF = exports.REACT_PERF = {
   id: 'hacmcodfllhbnekmghgdlplbdnahmhmm',
-  electron: '^1.2.6'
+  electron: '>=1.2.6'
 };
 var CYCLEJS_DEVTOOL = exports.CYCLEJS_DEVTOOL = {
   id: 'dfgplfmhhmdekalbpejekgfegkonjpfp',
-  electron: '^1.2.1'
+  electron: '>=1.2.1'
+};
+var APOLLO_DEVELOPER_TOOLS = exports.APOLLO_DEVELOPER_TOOLS = {
+  id: 'jdkknkkbebbapilgoeccciglkfbmbnfm',
+  electron: '>=1.2.1'
+};
+var MOBX_DEVTOOLS = exports.MOBX_DEVTOOLS = {
+  id: 'pfgnfdagidkfgccljigdamigbcnndkod',
+  electron: '>=1.2.1'
 };
 
 /***/ }),
@@ -5454,7 +5524,7 @@ var _crossUnzip = __webpack_require__(43);
 
 var _crossUnzip2 = _interopRequireDefault(_crossUnzip);
 
-var _utils = __webpack_require__(13);
+var _utils = __webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5468,29 +5538,28 @@ var downloadChromeExtension = function downloadChromeExtension(chromeStoreID, fo
   var extensionFolder = _path2.default.resolve(extensionsStore + '/' + chromeStoreID);
   return new Promise(function (resolve, reject) {
     if (!_fs2.default.existsSync(extensionFolder) || forceDownload) {
-      (function () {
-        if (_fs2.default.existsSync(extensionFolder)) {
-          _rimraf2.default.sync(extensionFolder);
-        }
-        var fileURL = 'https://clients2.google.com/service/update2/crx?response=redirect&x=id%3D' + chromeStoreID + '%26uc&prodversion=32'; // eslint-disable-line
-        var filePath = _path2.default.resolve(extensionFolder + '.crx');
-        (0, _utils.downloadFile)(fileURL, filePath).then(function () {
-          (0, _crossUnzip2.default)(filePath, extensionFolder, function (err) {
-            if (err && !_fs2.default.existsSync(_path2.default.resolve(extensionFolder, 'manifest.json'))) {
-              return reject(err);
-            }
-            resolve(extensionFolder);
-          });
-        }).catch(function (err) {
-          console.log('Failed to fetch extension, trying ' + (attempts - 1) + ' more times'); // eslint-disable-line
-          if (attempts <= 1) {
+      if (_fs2.default.existsSync(extensionFolder)) {
+        _rimraf2.default.sync(extensionFolder);
+      }
+      var fileURL = 'https://clients2.google.com/service/update2/crx?response=redirect&x=id%3D' + chromeStoreID + '%26uc&prodversion=32'; // eslint-disable-line
+      var filePath = _path2.default.resolve(extensionFolder + '.crx');
+      (0, _utils.downloadFile)(fileURL, filePath).then(function () {
+        (0, _crossUnzip2.default)(filePath, extensionFolder, function (err) {
+          if (err && !_fs2.default.existsSync(_path2.default.resolve(extensionFolder, 'manifest.json'))) {
             return reject(err);
           }
-          setTimeout(function () {
-            downloadChromeExtension(chromeStoreID, forceDownload, attempts - 1).then(resolve).catch(reject);
-          }, 200);
+          (0, _utils.changePermissions)(extensionFolder, 755);
+          resolve(extensionFolder);
         });
-      })();
+      }).catch(function (err) {
+        console.log('Failed to fetch extension, trying ' + (attempts - 1) + ' more times'); // eslint-disable-line
+        if (attempts <= 1) {
+          return reject(err);
+        }
+        setTimeout(function () {
+          downloadChromeExtension(chromeStoreID, forceDownload, attempts - 1).then(resolve).catch(reject);
+        }, 200);
+      });
     } else {
       resolve(extensionFolder);
     }
@@ -5509,7 +5578,7 @@ rimraf.sync = rimrafSync
 var assert = __webpack_require__(4)
 var path = __webpack_require__(0)
 var fs = __webpack_require__(1)
-var glob = __webpack_require__(8)
+var glob = __webpack_require__(9)
 
 var defaultGlobOpts = {
   nosort: true,
@@ -6525,15 +6594,15 @@ module.exports = globSync
 globSync.GlobSync = GlobSync
 
 var fs = __webpack_require__(1)
-var rp = __webpack_require__(9)
+var rp = __webpack_require__(10)
 var minimatch = __webpack_require__(5)
 var Minimatch = minimatch.Minimatch
-var Glob = __webpack_require__(8).Glob
+var Glob = __webpack_require__(9).Glob
 var util = __webpack_require__(3)
 var path = __webpack_require__(0)
 var assert = __webpack_require__(4)
 var isAbsolute = __webpack_require__(6)
-var common = __webpack_require__(10)
+var common = __webpack_require__(11)
 var alphasort = common.alphasort
 var alphasorti = common.alphasorti
 var setopts = common.setopts
@@ -7013,9 +7082,9 @@ GlobSync.prototype._makeAbs = function (f) {
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var wrappy = __webpack_require__(11)
+var wrappy = __webpack_require__(12)
 var reqs = Object.create(null)
-var once = __webpack_require__(12)
+var once = __webpack_require__(13)
 
 module.exports = wrappy(inflight)
 
