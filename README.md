@@ -9,7 +9,7 @@ font icon genrator is an offline cross platforme application to convert svg to f
 
 ## download
 
-* [windows](https://github.com/kyranis-studio/font-icon-generator/releases/download/0.0.1-beta/Font.Icon.Generator.0.0.1-Beta.exe)
+* [windows](https://github.com/kyranis-studio/font-icon-generator/releases/download/0.0.1-beta/font-icon-generator-windows.zip)
 * [linux](https://github.com/kyranis-studio/font-icon-generator/releases/download/0.0.1-beta/font-icon-generator.sh)
 ### for linux because of the limit of open file (run ulimit -a to know the limit of open files ) the applicaton may freeze so don't add more then 1024 icons this problem will be fix in the next version
 ### if the svg lib freeze delete the folder /home/youUserName/.font icon generator/svg-lib
